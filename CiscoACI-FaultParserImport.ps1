@@ -66,11 +66,14 @@ function CiscoACI-FaultParserImport {
     .EXAMPLE
     CiscoACI-FaultParserImport -faultsFile .\moquery-faultInfo.txt
 
+    .PARAMETER faultsFile
+    Specifies the file name for the file.
+
     .NOTES
     Only the moquery output is accepted. Make sure the file first line contains the '# fault' for the first fault and that there is no blank lines at the end.
 
-    .PARAMETER faultsFile
-    Specifies the file name for the file.
+    .LINK
+    https://github.com/brunobritorj/ciscoaci-powershell
   #>
 
   param (
