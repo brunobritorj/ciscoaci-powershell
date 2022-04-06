@@ -1,5 +1,3 @@
-cls
-
 function CiscoACI-ContractsParser {
 
   <#
