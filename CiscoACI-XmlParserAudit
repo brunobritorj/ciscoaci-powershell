@@ -1,0 +1,30 @@
+function CiscoACI-XmlParserAudit {
+    param (
+        [Parameter(Mandatory=$true)]
+        [ArgumentCompleter({
+            param($cmdName, $paramName, $wordToComplete, $cmdAst, $preBoundParameters)
+            $props = Get-ChildItem | Where-Object Name -match 'aaa'
+            @($props) -like "$wordToComplete*"
+        })]
+        [System.IO.FileInfo]$xmlFile,
+
+        [Parameter(Mandatory=$false)]
+        [ArgumentCompleter({
+            param($cmdName, $paramName, $wordToComplete, $cmdAst, $preBoundParameters)
+            @(5,10,25,50) -like "$wordToComplete*"
+        })]
+        [int]$summary
+    )
+
+    [xml]$xml = Get-Content -Path $xmlFile
+
+    if ($xml.imdata) { $aaaModLR = $xml.imdata }
+    else { $aaaModLR = $xml }
+
+    if ($aaaModLR.aaaModLR -and $aaaModLR.totalCount) { $aaaModLR = $aaaModLR.aaaModLR }
+
+    if ($summary) {
+        $aaaModLR | group Code | sort Count, Name -Descending | Select-Object -First $summary Count, Name
+    }
+    else { return $aaaModLR }
+}
